@@ -17,7 +17,10 @@ public class GameManager : MonoBehaviour
 
     public void Clicked()
     {
-        current_Money += hitpower;
+        if (current_Money < LimitedMoney)
+        {
+            current_Money += hitpower;
+        }
     }
 
     // Start is called before the first frame update
@@ -35,9 +38,13 @@ public class GameManager : MonoBehaviour
     {
         _textMoney.text = "Money: R$" + Mathf.FloorToInt(current_Money).ToString();
         MoneyIncresedforSecond = x * Time.deltaTime;
-        if(current_Money < LimitedMoney)
+        if(current_Money <= LimitedMoney)
         {
             current_Money += MoneyIncresedforSecond;
+        }
+        else
+        {
+            current_Money = LimitedMoney;
         }
     }
 }

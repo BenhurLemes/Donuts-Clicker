@@ -17,12 +17,6 @@ public class ShopCode : MonoBehaviour
     public TMP_Text amountText;
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
