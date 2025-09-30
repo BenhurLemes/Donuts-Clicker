@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UpgradeCode : MonoBehaviour
 {
-    public GameManager manager;
-    public UpgradeBase upgrade;
-    public TMP_Text UpgradeName;
-    public bool Buyed = false;
+    [SerializeField] GameManager manager;
+    [SerializeField] UpgradeBase upgrade;
+    [SerializeField] TMP_Text UpgradeName;
+    [SerializeField] bool Buyed = false;
+    [SerializeField] Button ButtonLimited;
 
     // Update is called once per frame
     void Update()
@@ -18,19 +20,20 @@ public class UpgradeCode : MonoBehaviour
 
     private void initial()
     {
-        UpgradeName.text = "Cost: R$" + upgrade.UpgradePrize;
+        UpgradeName.text = "Cost: R$" + upgrade.getUpgradePrize();
     }
 
     public void Upgrade()
     {
         if (Buyed == false)
         {
-            if (manager.current_Money >= upgrade.UpgradePrize)
+            if (manager.getCurrentMoney() >= upgrade.getUpgradePrize())
             {
-                manager.current_Money -= upgrade.UpgradePrize;
-                manager.hitpower *= upgrade.UpgradePower;
+                manager.increseadCurrentMoney(-upgrade.getUpgradePrize());
+                manager.increseadHitPower(upgrade.getUpgradePower());
                 Buyed = true;
             }
+            ButtonLimited.interactable = false;
         }
         else
         {

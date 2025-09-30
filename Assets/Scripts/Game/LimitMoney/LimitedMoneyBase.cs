@@ -5,6 +5,18 @@ using UnityEngine;
 [CreateAssetMenu]
 public class LimitedMoneyBase : ScriptableObject
 {
-    public float LimitIncreased;
-    public int LimitPrize;
+    [Header("Variáveis")]
+    [SerializeField] float LimitIncreased;
+    [SerializeField] int LimitPrize;
+
+
+    #region GETTERS AND SETTERS
+    public float getLimitIncreased() {
+        return LimitIncreased;
+    }
+
+    public int getLimitPrize() {
+        return LimitPrize;
+    }
+    #endregion
 }

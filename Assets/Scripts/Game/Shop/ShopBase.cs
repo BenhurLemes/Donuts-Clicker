@@ -8,14 +8,54 @@ public class ShopBase : ScriptableObject
 {
     // Start is called before the first frame update
 
-    #region Shop_Item
-    public int shopprize;
-    public int number;
-    public int MoneyX;
-    #endregion
+    [Header("Variáveis Shop item")]
+    [SerializeField] int shopprize;
+    [SerializeField] int number;
+    [SerializeField] int MoneyX;
 
-    #region Amount_ITem
-    public int amount;
-    public float amountProfit;
+    [Header("Variáveis Amount item")]
+    [SerializeField] int amount;
+    [SerializeField] float amountProfit;
+
+    #region GETTERS AND SETTERS
+    public int getShopPrize()
+    {
+        return shopprize;
+    }
+
+    public int getNumber()
+    {
+        return number;
+    }
+
+    public int getMoneyX()
+    {
+        return MoneyX;
+    }
+
+    public int getAmount()
+    {
+        return amount;
+    }
+
+    public float getAmountProfit()
+    {
+        return amountProfit;
+    }
+
+    public void IncreseadAmount()
+    {
+        amount++;
+    }
+
+    public void IncreseadAmountProfit()
+    {
+        amountProfit++;
+    }
+
+    public void IncreaseadPrize()
+    {
+        shopprize *= 2;
+    }
     #endregion
 }

@@ -2,37 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LimitedMoneyCode : MonoBehaviour
 {
-    public LimitedMoneyBase LimitedMoneyBase;
-    public GameManager Manager;
-    public TMP_Text LimitedName;
-    public bool Buyed = false;
+    [Header("Variáveis")]
+    [SerializeField] LimitedMoneyBase LimitedMoneyBase;
+    [SerializeField] GameManager Manager;
+    [SerializeField] TMP_Text LimitedName;
+    [SerializeField] Button ButtonLimited;
+    [SerializeField] bool Buyed = false;
 
     private void Update()
     {
         Initial();
     }
+
+    #region PRIVATES METHODS
+
     private void Initial()
     {
-        LimitedName.text = "Cost: R$" + LimitedMoneyBase.LimitPrize;
+        LimitedName.text = "Cost: R$" + LimitedMoneyBase.getLimitPrize().ToString();
     }
 
     public void Limited()
     {
         if(Buyed == false)
         {
-            if (Manager.current_Money >= LimitedMoneyBase.LimitPrize)
+            if (Manager.getCurrentMoney() >= LimitedMoneyBase.getLimitPrize())
             {
-                Manager.current_Money -= LimitedMoneyBase.LimitPrize;
-                Manager.LimitedMoney = LimitedMoneyBase.LimitIncreased;
+                Manager.increseadCurrentMoney(-LimitedMoneyBase.getLimitPrize());
+                Manager.setLimitedMoney(LimitedMoneyBase.getLimitIncreased());
                 Buyed = true;
             }
+            ButtonLimited.interactable = false;
         }
         else
         {
             return;
         }
     }
+    #endregion
 }

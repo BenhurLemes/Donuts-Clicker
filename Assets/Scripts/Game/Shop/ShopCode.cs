@@ -6,38 +6,45 @@ using UnityEngine;
 
 public class ShopCode : MonoBehaviour
 {
-    public ShopBase BaseShop;
-    public GameManager GameManager;
+    [Header("Variáveis privadas")]
+    [SerializeField] ShopBase BaseShop;
+    [SerializeField] GameManager GameManager;
 
-    #region Shop_Item
-    public TMP_Text _textShopText;
-    #endregion
+    [Header("Variáveis Shop item")]
+    [SerializeField] TMP_Text _textShopText;
 
-    #region Amount_ITem
-    public TMP_Text amountText;
-    #endregion
+    [Header("Variáveis Amount item")]
+    [SerializeField] TMP_Text amountText;
 
     // Update is called once per frame
+    private void Awake()
+    {
+        if(GameManager == null)
+        {
+            GameManager = FindAnyObjectByType<GameManager>();
+        }
+    }
+
     void Update()
     {
         Initial();
-    }
+    }   
 
     private void Initial()
     {
-        _textShopText.text = "Tier " + BaseShop.number.ToString() + ": " + BaseShop.shopprize.ToString() + " $";
-        amountText.text = "Tier " + BaseShop.number.ToString() + ": " + BaseShop.amount.ToString() + " arts $: " + BaseShop.amountProfit.ToString() + "/s";
+        _textShopText.text = "Tier " + BaseShop.getNumber().ToString() + ": " + BaseShop.getShopPrize().ToString() + " $";
+        amountText.text = "Tier " + BaseShop.getNumber().ToString() + ": " + BaseShop.getAmount().ToString() + " arts $: " + BaseShop.getAmountProfit().ToString() + "/s";
     }
 
     public void Shop()
     {
-        if(GameManager.current_Money >= BaseShop.shopprize)
+        if(GameManager.getCurrentMoney() >= BaseShop.getShopPrize())
         {
-            GameManager.current_Money -= BaseShop.shopprize;
-            BaseShop.amount += 1;
-            BaseShop.amountProfit += 1;
-            GameManager.x += BaseShop.MoneyX;
-            BaseShop.shopprize *= 2;
+            GameManager.increseadCurrentMoney(-BaseShop.getShopPrize());
+            BaseShop.IncreseadAmount();
+            BaseShop.IncreseadAmountProfit();
+            GameManager.increasedX(BaseShop.getMoneyX());
+            BaseShop.IncreaseadPrize();
         }
     }
 }
